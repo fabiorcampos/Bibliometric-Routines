@@ -102,12 +102,49 @@ knitr::kable(df.summary$MostRelKeywords)
 
 ## Authors' Dominance ranking
 
+The function dominance calculates the authors’ dominance ranking as proposed by Kumar & Kumar, 2008.
+
+```{r, echo=FALSE}
+DF <- dominance(df, k = 10)
+knitr::kable(DF)
+```
+
+
 ## Authors' h-index
+
+The h-index is an author-level metric that attempts to measure both the productivity and citation impact of the publications of a scientist or scholar.
+
+```{r}
+authors=gsub(","," ",names(df$Authors)[1:10])
+
+indices <- Hindex(database, authors, sep = ";",years=50)
+
+knitr::kable(indices$H)
+```
 
 ## Lotka's Law coefficient estimation
 
+Lotka’s law describes the frequency of publication by authors in any given field as an inverse square law, where the number of authors publishing a certain number of articles is a fixed ratio to the number of authors publishing a single article. 
+
+```{r}
+L <- lotka(df)
+# Author Productivity. Empirical Distribution
+knitr::kable(L$AuthorProd)
+```
+
 ## Bibliometric network matrices
 
+
 ## Bibliographic coupling
+
+```{r}
+NetMatrix <- biblioNetwork(database, analysis = "coupling", network = "authors", sep = ";")
+
+# calculate jaccard similarity coefficient
+S <- normalizeSimilarity(NetMatrix, type="jaccard")
+
+# plot authors' similarity (first 20 authors)
+net=networkPlot(S, n = 10, Title = "Authors' Coupling", type = "fruchterman", size=FALSE,remove.multiple=TRUE)
+```
 
 ## Bibliographic co-citation

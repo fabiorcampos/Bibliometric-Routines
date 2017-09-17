@@ -12,12 +12,6 @@ Aria, M. & Cuccurullo, C. (2017) bibliometrix: An R-tool for comprehensive scien
 
 The next round of Bibliometric Routines features will include:
 
-Authors' Dominance ranking
-
-Authors' h-index
-
-Lotka's Law coefficient estimation
-
 Bibliometric network matrices
 
 Bibliographic coupling

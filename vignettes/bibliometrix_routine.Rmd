@@ -27,6 +27,7 @@ Estabelecer um script pronto para análise de bibliometria e cientometria para c
 Este script é baseado no pacote "Bibliometrix" <http://www.bibliometrix.org/> para R. Na aba Documents é possível baixar um tutorial para preparar os dados para rodar no pacote. 
 
 Sendo assim, o script abaixo considera que o usuário já baixou a consulta em .txt ou .bib. 
+
 A título de demonstração consultamos no ISI o termo "autonomous vehicles" e selecionamos apenas áreas que se refere aos "veículos autonômos" que estão sendo desenvolvidos para o ambiente urbano. 
 
 O documento consta apenas os resultados sendo que o script em formato .RMD ou .R pode ser obtido neste link: <https://github.com/fabiorcampos/Bibliometric-Routines>
@@ -35,7 +36,7 @@ O documento consta apenas os resultados sendo que o script em formato .RMD ou .R
 
 ```{r, echo=FALSE, results='hide'}
 ### Load and prepare Data
-Dtisi <- readFiles("./data/savedrecs.bib")
+Dtisi <- readFiles("./data/smart_1.bib", "./data/smart_2.bib", "./data/smart_3.bib", "./data/smart_4.bib" )
 database <- convert2df(Dtisi, dbsource = "isi", format = "bibtex")
 df <- biblioAnalysis(database, sep = ";")
 df.summary <- summary(object = df, k = 10, pause = FALSE)
@@ -110,17 +111,7 @@ knitr::kable(DF)
 ```
 
 
-## Authors' h-index
 
-The h-index is an author-level metric that attempts to measure both the productivity and citation impact of the publications of a scientist or scholar.
-
-```{r}
-authors=gsub(","," ",names(df$Authors)[1:10])
-
-indices <- Hindex(database, authors, sep = ";",years=50)
-
-knitr::kable(indices$H)
-```
 
 ## Lotka's Law coefficient estimation
 
